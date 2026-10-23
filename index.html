@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3F0E8">
+<title>The Boat Doctors Abaco</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="The Boat Doctors. Marine engine and electrical repair, maintenance and logistics in Marsh Harbour, Abaco. Message Willy on WhatsApp: 242-801-5402.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap">
+<style>
+/* Layout: the page is a patient chart. The Boat Doctors' own logo (heartbeat over a hull) sets the idea:
+   chart-paper ground, a live monitor in the hero, and a symptom checker that writes the WhatsApp message to Willy.
+   Single light theme on purpose, in the logo's black, red and royal blue. */
+:root{
+  --paper:#F3F0E8;      /* chart paper */
+  --paper-2:#EAE5D9;
+  --grid:rgba(30,71,200,.075);
+  --ink:#0E1116;        /* logo black */
+  --ink-2:#3B4048;
+  --muted:#6A6F78;
+  --line:rgba(14,17,22,.14);
+  --red:#D7261E;        /* heartbeat red */
+  --red-ink:#B11D16;
+  --blue:#1E47C8;       /* wave blue */
+  --deep:#0A1A33;       /* night water */
+  --deep-2:#10264A;
+  --ok:#14915A;
+  --wa:#1FAF5A;
+  --display:'Archivo','Arial Narrow',Helvetica,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --pad:18px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--display);font-stretch:100%;font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.chart{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px}
+
+/* ribbon + header */
+.ribbon{background:var(--ink);color:#F3F0E8;text-align:center;padding:8px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.ribbon b{color:#FF7A72;font-weight:700}
+header.top{position:sticky;top:0;z-index:40;background:rgba(243,240,232,.92);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{font-weight:800;font-stretch:80%;font-size:19px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap}
+.brand small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--muted);margin-top:4px;text-transform:uppercase;white-space:nowrap}
+.hbtn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:14.5px;flex:none}
+.hbtn svg{width:17px;height:17px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 24px;border-radius:14px;font-weight:800;font-size:17px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+.btn svg{width:21px;height:21px;flex:none}
+.btn:active{transform:translateY(1px)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 10px 24px -10px rgba(215,38,30,.75)}
+.btn-red:hover{background:var(--red-ink)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 10px 24px -10px rgba(31,175,90,.8)}
+
+/* hero */
+.hero{position:relative;padding:34px 0 40px;border-bottom:1px solid var(--line)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(215,38,30,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(215,38,30,.55)}70%{box-shadow:0 0 0 9px rgba(215,38,30,0)}100%{box-shadow:0 0 0 0 rgba(215,38,30,0)}}
+.hero h1{font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:clamp(52px,15vw,112px);line-height:.86;letter-spacing:-.015em;margin:18px 0 0}
+.hero h1 em{font-style:normal;color:var(--red)}
+.lede{font-size:18.5px;line-height:1.5;color:var(--ink-2);margin:18px 0 0;max-width:34ch}
+.lede b{color:var(--ink)}
+.acts{display:grid;gap:10px;margin-top:24px}
+
+/* monitor */
+.monitor{margin-top:30px;background:var(--ink);color:#E8F2EC;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(10,26,51,.6);border:1px solid #000}
+.mon-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9AA6A0}
+.mon-top b{color:#fff;font-weight:700}
+.live{display:inline-flex;align-items:center;gap:7px;color:#FF8D86}
+.live i{width:7px;height:7px;border-radius:50%;background:#FF4B40;animation:blink 1s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+.ekg{position:relative;height:118px;background-image:linear-gradient(rgba(80,255,170,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,255,170,.07) 1px,transparent 1px);background-size:16px 16px}
+.ekg svg{position:absolute;inset:0;width:100%;height:100%}
+.ekg .trace{fill:none;stroke:#4BF0A0;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(75,240,160,.7));stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 3.2s linear infinite}
+.monitor.alarm .ekg .trace{stroke:#FF5A4F;filter:drop-shadow(0 0 5px rgba(255,90,79,.8))}
+@keyframes draw{to{stroke-dashoffset:0}}
+.vitals{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.08)}
+.vital{padding:12px 14px;border-right:1px solid rgba(255,255,255,.08)}
+.vital:last-child{border-right:0}
+.vital span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#8E9A94;text-transform:uppercase}
+.vital b{display:block;font-family:var(--mono);font-size:21px;font-weight:700;color:#4BF0A0;margin-top:4px;transition:color .3s}
+.vital b small{font-size:11px;color:#8E9A94;font-weight:500;margin-left:2px}
+.monitor.alarm .vital b.bad{color:#FF5A4F}
+.mon-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:#06080B;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
+.mon-foot .status{color:#4BF0A0;transition:color .3s}
+.monitor.alarm .mon-foot .status{color:#FF8D86}
+.mon-foot .who{color:#7F8A85}
+
+/* facts strip */
+.facts{background:var(--ink);color:#F3F0E8}
+.facts .wrap{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.fact{padding:18px 14px 18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.fact:nth-child(odd){padding-right:14px;border-right:1px solid rgba(255,255,255,.1)}
+.fact:nth-child(even){padding-left:14px}
+.fact span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#9AA0A8}
+.fact b{display:block;font-weight:800;font-stretch:85%;font-size:18px;margin-top:4px;line-height:1.2}
+.fact b.red{color:#FF6B62}
+
+/* sections */
+section{padding:62px 0}
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:2px;background:var(--red)}
+h2{font-weight:900;font-stretch:75%;text-transform:uppercase;font-size:clamp(40px,10vw,72px);line-height:.9;letter-spacing:-.01em;margin:12px 0 0}
+.sub{color:var(--ink-2);font-size:17.5px;margin:14px 0 0;max-width:46ch}
+
+/* symptom checker */
+.triage{background:#fff;border:1px solid var(--line);border-radius:22px;margin-top:28px;overflow:hidden;box-shadow:0 24px 50px -36px rgba(14,17,22,.45)}
+.tri-step{padding:20px 18px;border-bottom:1px dashed var(--line)}
+.tri-step h3{margin:0 0 12px;font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;display:flex;gap:8px;align-items:center}
+.tri-step h3 em{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px}
+.sym{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sym button{display:flex;align-items:center;gap:10px;text-align:left;min-height:58px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-weight:700;font-size:15px;line-height:1.15;transition:border-color .15s,background .15s,transform .1s}
+.sym button svg{width:24px;height:24px;flex:none;color:var(--ink-2)}
+.sym button:hover{border-color:var(--ink)}
+.sym button[aria-pressed="true"]{border-color:var(--red);background:#FFF1EF;box-shadow:inset 0 0 0 1px var(--red)}
+.sym button[aria-pressed="true"] svg{color:var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{height:42px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-weight:700;font-size:14.5px}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.field{display:block;margin-top:12px}
+.field span{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin-bottom:6px}
+.field input{width:100%;height:50px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);padding:0 14px;font:inherit;font-size:16px;color:var(--ink)}
+.field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,71,200,.15)}
+
+.dx{background:var(--deep);color:#EAF0FA;padding:22px 18px}
+.dx-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dx-head .mono{color:#8FA4C8}
+.dx-head h4{margin:6px 0 0;font-weight:900;font-stretch:78%;text-transform:uppercase;font-size:30px;line-height:.95}
+.tag{flex:none;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:7px;background:#FF5A4F;color:#fff}
+.tag.calm{background:#2B5BE0}
+.tag.watch{background:#E8A21A;color:#1A1200}
+.dx p.note{margin:12px 0 0;color:#C9D5EA;font-size:15.5px}
+.dx ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.dx li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px}
+.dx li b{flex:none;font-family:var(--mono);font-size:12px;color:#FF8D86;margin-top:2px}
+.dx li span{font-size:15.5px;line-height:1.4}
+.dx .fine{font-size:12.5px;color:#8FA4C8;margin:14px 0 0}
+.send{margin-top:18px}
+.send .btn{width:100%}
+.preview{margin-top:12px;background:#E7FFD9;color:#14240E;border-radius:12px 12px 12px 3px;padding:12px 14px;font-size:14px;line-height:1.45;white-space:pre-line;font-family:var(--display)}
+.preview-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8FA4C8;margin-top:16px}
+
+/* treatments */
+.svc{display:grid;gap:12px;margin-top:28px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;position:relative;overflow:hidden}
+.card .rx{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.card .ic{width:46px;height:46px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center}
+.card .ic svg{width:24px;height:24px}
+.card h3{margin:14px 0 6px;font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:25px;line-height:1}
+.card p{margin:0;color:var(--ink-2);font-size:15.5px}
+.card ul{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.card li{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:5px 8px;border-radius:6px;background:var(--paper);border:1px solid var(--line)}
+.card.feature{background:var(--red);color:#fff;border-color:var(--red)}
+.card.feature .ic{background:#fff;color:var(--red)}
+.card.feature p{color:#FFE3E0}
+.card.feature .rx{color:#FFD0CB}
+.card.feature li{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+
+/* house call */
+.calls{background:var(--deep);color:#EAF0FA;position:relative;overflow:hidden}
+.calls h2{color:#fff}
+.calls .sub{color:#B9C7E0}
+.calls .kicker{color:#FF8D86}
+.calls .kicker::before{background:#FF8D86}
+.steps{display:grid;gap:12px;margin-top:28px;counter-reset:s}
+.step{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px;background:rgba(255,255,255,.03)}
+.step .n{font-family:var(--mono);font-size:12px;color:#FF8D86;letter-spacing:.1em}
+.step h3{margin:8px 0 6px;font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:24px;line-height:1}
+.step p{margin:0;color:#B9C7E0;font-size:15.5px}
+.waves{position:absolute;left:0;right:0;bottom:-2px;height:60px;opacity:.5}
+
+/* review */
+.review{padding:62px 0}
+.quote{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 20px 22px;margin-top:26px}
+.stars{display:flex;gap:3px;color:#E8A21A}
+.stars svg{width:20px;height:20px}
+.quote blockquote{margin:14px 0 0;font-weight:800;font-stretch:88%;font-size:clamp(25px,6.4vw,40px);line-height:1.08;letter-spacing:-.01em}
+.quote blockquote mark{background:linear-gradient(transparent 62%,rgba(215,38,30,.22) 62%);color:inherit}
+.quote cite{display:flex;align-items:center;gap:10px;margin-top:18px;font-style:normal;font-size:14.5px;color:var(--ink-2)}
+.quote cite i{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:14px}
+.gbadge{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted)}
+
+/* final */
+.final{background:var(--red);color:#fff;padding:60px 0 64px;text-align:left;position:relative;overflow:hidden}
+.final h2{color:#fff;font-size:clamp(46px,13vw,96px)}
+.final p{color:#FFE3E0;font-size:18px;margin:14px 0 0;max-width:36ch}
+.final .acts{max-width:460px}
+.final .btn-white{background:#fff;color:var(--red)}
+.final .btn-line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7)}
+.final .ekgline{position:absolute;right:-40px;top:24px;width:420px;opacity:.25}
+
+footer{background:var(--ink);color:#B7BCC4;padding:30px 0 110px;font-size:14px}
+footer .wrap{display:grid;gap:14px}
+footer b{color:#fff}
+footer .mono{color:#7E848D;font-size:10.5px}
+
+/* sticky mobile bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1fr 1.4fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(243,240,232,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s ease}
+.sticky.on{transform:none}
+.sticky .btn{height:52px;font-size:16px;padding:0 12px}
+
+.rise{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
+.rise.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .ekg .trace{stroke-dashoffset:0}
+  .rise{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+@media (max-width:520px){
+  .hbtn span{display:none}
+  .hbtn{width:46px;height:46px;padding:0;justify-content:center;background:var(--wa)}
+  .hbtn svg{width:22px;height:22px}
+}
+@media (max-width:350px){.brand small{display:none}}
+@media (min-width:720px){
+  .acts{grid-template-columns:auto auto;justify-content:start}
+  .facts .wrap{grid-template-columns:repeat(4,1fr)}
+  .fact,.fact:nth-child(odd),.fact:nth-child(even){padding:20px 18px;border-bottom:0;border-right:1px solid rgba(255,255,255,.1)}
+  .fact:first-child{padding-left:0}
+  .fact:last-child{border-right:0}
+  .svc{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:980px){
+  :root{--pad:40px}
+  .hero{padding:58px 0 70px}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .monitor{margin-top:0}
+  .ekg{height:150px}
+  section,.review{padding:96px 0}
+  .tri-grid{display:grid;grid-template-columns:1.1fr .9fr}
+  .tri-left{border-right:1px dashed var(--line)}
+  .dx{padding:28px 26px}
+  .tri-step{padding:24px 26px}
+  .sym{grid-template-columns:repeat(4,1fr)}
+  .sym button{flex-direction:column;align-items:flex-start;min-height:96px;justify-content:space-between;padding:14px}
+  .svc{grid-template-columns:repeat(3,1fr)}
+  .quote{padding:44px 48px 36px}
+  .sticky{display:none}
+  footer{padding-bottom:40px}
+  footer .wrap{grid-template-columns:1fr auto;align-items:end}
+}
+</style>
+</head>
+<body>
+<div class="ribbon">Preview made for <b>The Boat Doctors</b> · Marsh Harbour, Abaco</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="The Boat Doctors home">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="22.5" fill="#fff" stroke="#0E1116" stroke-width="2.4"/>
+        <circle cx="24" cy="24" r="16.5" fill="none" stroke="#0E1116" stroke-width="1.2"/>
+        <path d="M11 20.5h7l2.2-6 3 12 2.4-8.5 1.6 4.5H36" fill="none" stroke="#D7261E" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="36.4" cy="20.5" r="1.7" fill="#D7261E"/>
+        <path d="M13 31.5h20l-3.2 3.6H15.5z" fill="#0E1116"/>
+        <path d="M18 31.5l5.5-3.4h4.2l-2.4 3.4z" fill="#0E1116"/>
+        <path d="M14 37.2c3-1.4 5.6 1.2 9 0s6-1.2 9 0" fill="none" stroke="#1E47C8" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span><b>The Boat Doctors</b><small>Maintenance &amp; Logistics</small></span>
+    </a>
+    <a class="hbtn" aria-label="Message Willy on WhatsApp" href="https://wa.me/12428015402?text=Hi%20Willy%2C%20I%20need%20help%20with%20my%20boat." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>
+      <span>Message Willy</span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero chart">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><i></i>Marine mechanic · Abaco</span>
+      <h1>Boat sick?<br><em>Call the doctor.</em></h1>
+      <p class="lede">Engine, electrical and maintenance work for boats in Marsh Harbour. <b>Tell Willy the symptoms on WhatsApp</b> and he'll come and find the problem.</p>
+      <div class="acts">
+        <a class="btn btn-red" href="#checkup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+          Start a check-up
+        </a>
+        <a class="btn btn-ghost" href="tel:+12428015402">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          242-801-5402
+        </a>
+      </div>
+    </div>
+
+    <div class="monitor" id="monitor" aria-label="Illustration of an engine monitor">
+      <div class="mon-top"><span>Patient: <b id="patient">Your boat</b></span><span class="live"><i></i>Live</span></div>
+      <div class="ekg">
+        <svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true">
+          <path class="trace" d="M0 85 H70 L82 85 L92 70 L102 85 H130 L142 85 L150 100 L162 20 L174 128 L184 85 H230 L250 85 Q262 62 274 85 H330 L342 85 L352 70 L362 85 H390 L402 85 L410 100 L422 20 L434 128 L444 85 H490 L510 85 Q522 62 534 85 H600"/>
+        </svg>
+      </div>
+      <div class="vitals">
+        <div class="vital"><span>Engine temp</span><b id="v-temp">178<small>°F</small></b></div>
+        <div class="vital"><span>Battery</span><b id="v-volt">12.7<small>V</small></b></div>
+        <div class="vital"><span>Oil press.</span><b id="v-oil">48<small>PSI</small></b></div>
+      </div>
+      <div class="mon-foot"><span class="status" id="mon-status">● All vitals normal</span><span class="who">Dr. Willy on call</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact"><span>Hours</span><b id="hours-now">Open today · until 5 PM</b></div>
+    <div class="fact"><span>Based in</span><b>Marsh Harbour, Abaco</b></div>
+    <div class="fact"><span>Works on</span><b>Outboard · Inboard · Diesel</b></div>
+    <div class="fact"><span>Google rating</span><b class="red">★★★★★ 5.0</b></div>
+  </div>
+</div>
+
+<section id="checkup">
+  <div class="wrap">
+    <div class="kicker rise">Free check-up</div>
+    <h2 class="rise">Tell the doctor<br>where it hurts.</h2>
+    <p class="sub rise">Pick what your boat is doing. You'll see the usual suspects, and one tap sends the whole thing to Willy on WhatsApp.</p>
+
+    <div class="triage rise">
+      <div class="tri-grid">
+        <div class="tri-left">
+          <div class="tri-step">
+            <h3><em>1</em>Symptom</h3>
+            <div class="sym" id="sym" role="group" aria-label="Symptom">
+              <button type="button" data-k="start" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5"/><path d="M8.5 9.5a5 5 0 1 0 7 0"/></svg>Won't start</button>
+              <button type="button" data-k="hot" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg>Overheating</button>
+              <button type="button" data-k="alarm" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Alarm / warning light</button>
+              <button type="button" data-k="power" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="12" rx="2"/><path d="M22 11v4M7 13h4M9 11v4"/></svg>Electrical dead</button>
+              <button type="button" data-k="bilge" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 1.3 4 1.3 6 0s4-1.3 6 0 4 1.3 6 0"/><path d="M12 3v9M8.5 8.5 12 12l3.5-3.5"/></svg>Bilge pump</button>
+              <button type="button" data-k="smoke" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 15c-2-2 1-3 0-5s1-4 3-4"/><path d="M13 15c-2-2 1-3 0-5s1-4 3-4"/></svg>Smoke / runs rough</button>
+              <button type="button" data-k="leak" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7 6.3 9.6a7 7 0 1 0 11.4 0z"/></svg>Leak (oil, fuel, water)</button>
+              <button type="button" data-k="service" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>Routine service</button>
+            </div>
+          </div>
+          <div class="tri-step">
+            <h3><em>2</em>Engine</h3>
+            <div class="chips" id="eng" role="group" aria-label="Engine type">
+              <button type="button" aria-pressed="true">Outboard</button>
+              <button type="button" aria-pressed="false">Inboard diesel</button>
+              <button type="button" aria-pressed="false">Inboard gas</button>
+              <button type="button" aria-pressed="false">Generator</button>
+              <button type="button" aria-pressed="false">Not sure</button>
+            </div>
+            <label class="field"><span>Make &amp; model (optional)</span><input id="make" type="text" placeholder="e.g. Yamaha 250, Yanmar 3YM30" autocomplete="off"></label>
+          </div>
+          <div class="tri-step" style="border-bottom:0">
+            <h3><em>3</em>Where's the boat?</h3>
+            <div class="chips" id="loc" role="group" aria-label="Boat location">
+              <button type="button" aria-pressed="true">Marina slip</button>
+              <button type="button" aria-pressed="false">On a mooring</button>
+              <button type="button" aria-pressed="false">At anchor</button>
+              <button type="button" aria-pressed="false">On the hard</button>
+              <button type="button" aria-pressed="false">Private dock</button>
+            </div>
+            <label class="field"><span>Your name</span><input id="name" type="text" placeholder="Name" autocomplete="name"></label>
+          </div>
+        </div>
+
+        <div class="dx" aria-live="polite">
+          <div class="dx-head">
+            <div><div class="mono">Diagnosis chart</div><h4 id="dx-title">Won't start</h4></div>
+            <span class="tag" id="dx-tag">Priority</span>
+          </div>
+          <p class="note" id="dx-note">Usually something simple, but it needs eyes on it.</p>
+          <ul id="dx-list"></ul>
+          <p class="fine">Common causes only. Willy confirms on board before any work.</p>
+          <div class="preview-label">Your message to Willy</div>
+          <div class="preview" id="preview"></div>
+          <div class="send"><a class="btn btn-wa" id="send" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+            Send to Willy on WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chart" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="kicker rise">Treatments</div>
+    <h2 class="rise">What the doctor fixes.</h2>
+    <div class="svc">
+      <article class="card feature rise">
+        <span class="rx">Rx 01</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></div>
+        <h3>Diagnostics</h3>
+        <p>Won't start, losing power, strange noises. Willy finds the actual cause first, so you don't pay for guesses.</p>
+        <ul><li>No-start</li><li>Loss of power</li><li>Warning alarms</li></ul>
+      </article>
+      <article class="card rise">
+        <span class="rx">Rx 02</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.8 1.2V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-2.8-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3.3 14H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 3.1V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 2.8 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.8h.1a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
+        <h3>Engine repair</h3>
+        <p>Outboards, inboard diesel and gas. Starters, fuel systems, cooling, seals and tune-ups.</p>
+        <ul><li>Outboard</li><li>Diesel</li><li>Cooling</li><li>Fuel</li></ul>
+      </article>
+      <article class="card rise">
+        <span class="rx">Rx 03</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div>
+        <h3>Marine electrical</h3>
+        <p>Batteries, charging, wiring, pumps and motors. Salt air eats connections. Willy traces it and fixes it properly.</p>
+        <ul><li>Wiring</li><li>Charging</li><li>Pumps</li></ul>
+      </article>
+      <article class="card rise">
+        <span class="rx">Rx 04</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div>
+        <h3>Maintenance</h3>
+        <p>Oil and filters, impellers, zincs, belts. The check-ups that stop a breakdown before it happens.</p>
+        <ul><li>Oil &amp; filters</li><li>Impellers</li><li>Zincs</li></ul>
+      </article>
+      <article class="card rise">
+        <span class="rx">Rx 05</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M21 3l-7 7"/><path d="M8 21H3v-5M3 21l7-7"/></svg></div>
+        <h3>Parts &amp; logistics</h3>
+        <p>Waiting on a part in Abaco can cost you a week. Willy sources it and gets it to the boat.</p>
+        <ul><li>Parts sourcing</li><li>Delivery to the boat</li></ul>
+      </article>
+      <article class="card rise">
+        <span class="rx">Rx 06</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Away-owner checks</h3>
+        <p>Off-island? Get your boat checked and started, with photos sent to your phone.</p>
+        <ul><li>Start-ups</li><li>Photo reports</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="calls">
+  <div class="wrap">
+    <div class="kicker rise">House calls</div>
+    <h2 class="rise">How a visit works.</h2>
+    <p class="sub rise">No dragging the boat anywhere. The doctor comes to you.</p>
+    <div class="steps">
+      <div class="step rise"><div class="n">01 / Symptoms</div><h3>Message Willy</h3><p>Use the check-up above or just WhatsApp what's happening. A photo or video helps.</p></div>
+      <div class="step rise"><div class="n">02 / Diagnosis</div><h3>He comes aboard</h3><p>Willy checks it at your slip, mooring or dock and tells you what's wrong before fixing anything.</p></div>
+      <div class="step rise"><div class="n">03 / Discharged</div><h3>Back on the water</h3><p>Repaired, tested and running. Parts sorted if needed.</p></div>
+    </div>
+  </div>
+  <svg class="waves" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30c100-20 200 20 300 0s200-20 300 0 200 20 300 0 200-20 300 0v30H0z" fill="#1E47C8"/></svg>
+</section>
+
+<section class="review chart">
+  <div class="wrap">
+    <div class="kicker rise">Patient notes</div>
+    <h2 class="rise">What boaters say.</h2>
+    <figure class="quote rise" style="margin-left:0;margin-right:0">
+      <div class="stars" aria-label="5 stars">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      </div>
+      <blockquote>“There is <mark>no better technician, mechanic or problem solver</mark> than Willy. His knowledge is only surpassed by his high level of customer service and responsiveness.”</blockquote>
+      <cite><i>SH</i><span><b>Steve Haley</b><br>Google review</span><span class="gbadge">via Google</span></cite>
+    </figure>
+  </div>
+</section>
+
+<section class="final">
+  <svg class="ekgline" viewBox="0 0 400 120" aria-hidden="true"><path d="M0 70h90l12-24 16 50 18-86 18 96 12-36h234" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="wrap">
+    <h2 class="rise">Don't lose<br>a day on the water.</h2>
+    <p class="rise">Message Willy now. Tell him what the boat is doing and where it is.</p>
+    <div class="acts rise">
+      <a class="btn btn-white" href="https://wa.me/12428015402?text=Hi%20Willy%2C%20I%20need%20help%20with%20my%20boat." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+        WhatsApp Willy</a>
+      <a class="btn btn-line" href="tel:+12428015402">Call 242-801-5402</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>The Boat Doctors</b> · Maintenance &amp; Logistics<br>Marsh Harbour, Abaco, The Bahamas<br>242-801-5402</div>
+    <div class="mono">Preview site</div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn-ghost" href="tel:+12428015402">Call</a>
+  <a class="btn btn-red" href="#checkup">Start check-up</a>
+</div>
+
+<script>
+(function(){
+  var PHONE='12428015402';
+  var DX={
+    start:{t:"Won't start",tag:['Priority',''],note:"Usually something simple, but it needs eyes on it.",c:["Weak battery or corroded terminals","Starter motor or solenoid","Fuel not getting through: filter, water in fuel, primer bulb","Kill-switch lanyard or safety switch"],alarm:{volt:'11.4',temp:null,oil:'0'}},
+    hot:{t:"Overheating",tag:['Stop engine',''],note:"Shut it down. Running hot can wreck an engine fast.",c:["Raw-water intake or strainer blocked","Worn or broken impeller","Heat exchanger scaled up","Stuck thermostat"],alarm:{temp:'231',volt:null,oil:null}},
+    alarm:{t:"Alarm / warning light",tag:['Check soon','watch'],note:"The alarm is telling you something. Don't ignore it.",c:["Low oil pressure","Overheat sensor tripped","Alternator not charging","Faulty sender or wiring"],alarm:{oil:'9',temp:null,volt:null}},
+    power:{t:"Electrical dead",tag:['Priority',''],note:"No power often means no bilge pump either. Get it checked.",c:["Dead or failing battery","Corroded connections or ground","Alternator or charger fault","Tripped breaker or blown fuse"],alarm:{volt:'10.2',temp:null,oil:null}},
+    bilge:{t:"Bilge pump",tag:['Check bilge now',''],note:"Look at the water level in the bilge first.",c:["Float switch stuck","Pump motor failed","Corroded wiring or fuse","Intake clogged with debris"],alarm:{volt:null,temp:null,oil:null}},
+    smoke:{t:"Smoke / runs rough",tag:['Check soon','watch'],note:"The smoke colour is a clue. Snap a video for Willy.",c:["Dirty fuel filters or injectors","Water in the fuel","Air intake restricted","Ignition or plug issue (gas engines)"],alarm:{temp:'204',volt:null,oil:null}},
+    leak:{t:"Leak",tag:['Check soon','watch'],note:"Note what's leaking: oil, fuel or water. Fuel leaks are urgent.",c:["Worn seals (sail-drive, shaft, gaskets)","Hose or clamp failed","Stuffing box dripping too much","Fuel line or fitting"],alarm:{oil:'31',temp:null,volt:null}},
+    service:{t:"Routine service",tag:['Book ahead','calm'],note:"The cheapest repair is the one you never need.",c:["Oil and filter change","Impeller replacement","Zincs (anodes)","Belts, hoses and fuel-water separator"],alarm:null}
+  };
+  var state={k:'start',eng:'Outboard',loc:'Marina slip'};
+  var $=function(id){return document.getElementById(id)};
+  var mon=$('monitor');
+
+  function pick(group,btn){
+    group.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b===btn?'true':'false')});
+  }
+  function setVitals(a){
+    var t=$('v-temp'),v=$('v-volt'),o=$('v-oil');
+    t.innerHTML=(a&&a.temp||'178')+'<small>°F</small>';
+    v.innerHTML=(a&&a.volt||'12.7')+'<small>V</small>';
+    o.innerHTML=(a&&a.oil||'48')+'<small>PSI</small>';
+    t.className=a&&a.temp?'bad':''; v.className=a&&a.volt?'bad':''; o.className=a&&a.oil?'bad':'';
+    var bad=a&&(a.temp||a.volt||a.oil);
+    mon.classList.toggle('alarm',!!bad);
+    $('mon-status').textContent=bad?'▲ Abnormal reading: '+DX[state.k].t:'● All vitals normal';
+  }
+  function render(){
+    var d=DX[state.k];
+    $('dx-title').textContent=d.t;
+    var tag=$('dx-tag'); tag.textContent=d.tag[0]; tag.className='tag'+(d.tag[1]?' '+d.tag[1]:'');
+    $('dx-note').textContent=d.note;
+    $('dx-list').innerHTML=d.c.map(function(c,i){return '<li><b>0'+(i+1)+'</b><span>'+c+'</span></li>'}).join('');
+    var make=$('make').value.trim(), name=$('name').value.trim();
+    var msg='Hi Willy, my boat needs the doctor.\n'+
+      'Problem: '+d.t+'\n'+
+      'Engine: '+state.eng+(make?' ('+make+')':'')+'\n'+
+      'Boat is: '+state.loc+', Marsh Harbour'+
+      (name?'\nName: '+name:'');
+    $('preview').textContent=msg;
+    $('send').href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg);
+    $('patient').textContent=make||'Your boat';
+    setVitals(d.alarm);
+  }
+  $('sym').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pick(this,b);state.k=b.dataset.k;render()});
+  $('eng').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pick(this,b);state.eng=b.textContent;render()});
+  $('loc').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pick(this,b);state.loc=b.textContent;render()});
+  $('make').addEventListener('input',render);
+  $('name').addEventListener('input',render);
+  render();
+  setVitals(null);
+
+  /* hours in Bahamas time (America/Nassau), Google lists closing at 5 PM */
+  try{
+    var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Nassau',weekday:'short',hour:'numeric',hour12:false}).formatToParts(new Date());
+    var h=+parts.find(function(p){return p.type==='hour'}).value, wd=parts.find(function(p){return p.type==='weekday'}).value;
+    var el=$('hours-now');
+    if(h>=8&&h<17){el.textContent='Open now · until 5 PM'}else{el.textContent='Closed now · message anytime'}
+  }catch(e){}
+
+  /* sticky bar + reveal */
+  var sticky=$('sticky'), hero=document.querySelector('.hero');
+  function onScroll(){var r=hero.getBoundingClientRect();sticky.classList.toggle('on',r.bottom<0)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var els=document.querySelectorAll('.rise');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }else{els.forEach(function(e){e.classList.add('in')})}
+})();
+</script>
+</body>
+</html>
